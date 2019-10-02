@@ -1,8 +1,8 @@
 package br.com.hussan.coffeeiot.extensions
 
 import android.content.Context
-import android.support.v4.content.ContextCompat
 import android.view.View
+import androidx.core.content.ContextCompat
 
 fun View.show() {
     this.visibility = View.VISIBLE

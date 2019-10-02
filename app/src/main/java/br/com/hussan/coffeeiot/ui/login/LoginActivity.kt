@@ -3,7 +3,8 @@ package br.com.hussan.coffeeiot.ui.login
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
+import br.com.hussan.coffeeiot.ui.listdevices.ListDevicesActivity
 import com.example.hussan.coffeeiot.R
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
@@ -22,7 +23,8 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         val providers = arrayListOf(
-                AuthUI.IdpConfig.GoogleBuilder().build())
+                AuthUI.IdpConfig.GoogleBuilder().build(),
+                AuthUI.IdpConfig.EmailBuilder().build())
 
 
         btnLogin.setOnClickListener {
@@ -44,6 +46,7 @@ class LoginActivity : AppCompatActivity() {
             if (resultCode == Activity.RESULT_OK) {
                 val user = FirebaseAuth.getInstance().currentUser
                 // mando pro tela
+                startActivity(Intent(this, ListDevicesActivity::class.java))
             } else {
                 //
             }

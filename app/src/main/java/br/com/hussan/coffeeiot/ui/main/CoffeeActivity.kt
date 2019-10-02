@@ -2,12 +2,12 @@ package br.com.hussan.coffeeiot.ui.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import br.com.hussan.coffeeiot.data.DeviceDataSource
 import br.com.hussan.coffeeiot.data.DeviceRepository
 import br.com.hussan.coffeeiot.data.PrefsRespository
@@ -64,8 +64,8 @@ class CoffeeActivity : AppCompatActivity() {
     }
 
     private fun getLocalData() {
-        broker = prefs.getBroker()
-        topic = prefs.getTopic()
+        broker = prefs?.getBroker() ?: return
+        topic = prefs?.getTopic() ?: return
     }
 
     private fun connectAndSubscribe() {

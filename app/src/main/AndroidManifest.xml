@@ -3,12 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.hussan.coffeeiot">
 
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.CAMERA" />
-
     <application
         android:name="br.com.hussan.coffeeiot.AppApplication"
         android:allowBackup="true"
@@ -18,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="br.com.hussan.coffeeiot.ui.listdevices.ListDevicesActivity">
+        <activity android:name="br.com.hussan.coffeeiot.ui.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,6 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name="br.com.hussan.coffeeiot.ui.main.CoffeeActivity" />
+        <activity android:name="br.com.hussan.coffeeiot.ui.listdevices.ListDevicesActivity" />
         <activity android:name="br.com.hussan.coffeeiot.ui.qrcode.ConfigActivity" />
 
         <activity
@@ -37,5 +32,12 @@
 
         <service android:name="org.eclipse.paho.android.service.MqttService" />
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
 </manifest>

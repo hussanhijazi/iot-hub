@@ -5,9 +5,9 @@ import android.content.SharedPreferences
 
 interface PrefsDataSource {
     fun saveTopic(topic: String)
-    fun getTopic(): String
+    fun getTopic(): String?
     fun saveBroker(topic: String)
-    fun getBroker(): String
+    fun getBroker(): String?
 }
 
 class PrefsRespository(val context: Context) : PrefsDataSource {
@@ -30,7 +30,7 @@ class PrefsRespository(val context: Context) : PrefsDataSource {
         }
     }
 
-    override fun getTopic(): String {
+    override fun getTopic(): String? {
         return sharedPref.getString(TOPIC_PREFS, topic)
     }
 
@@ -41,7 +41,7 @@ class PrefsRespository(val context: Context) : PrefsDataSource {
         }
     }
 
-    override fun getBroker(): String {
+    override fun getBroker(): String? {
         return sharedPref.getString(BROKER_PREFS, broker)
     }
 

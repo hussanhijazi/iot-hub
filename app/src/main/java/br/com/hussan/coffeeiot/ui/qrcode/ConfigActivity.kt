@@ -2,8 +2,8 @@ package br.com.hussan.coffeeiot.ui.qrcode
 
 import android.app.Activity
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import br.com.hussan.coffeeiot.data.PrefsRespository
 import com.example.hussan.coffeeiot.R
 import kotlinx.android.synthetic.main.activity_config.btnSave

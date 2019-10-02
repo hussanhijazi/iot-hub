@@ -2,12 +2,11 @@ package br.com.hussan.coffeeiot.ui.listdevices
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import br.com.hussan.coffeeiot.data.DeviceDataSource
 import br.com.hussan.coffeeiot.data.DeviceRepository
 import br.com.hussan.coffeeiot.data.model.Device
@@ -32,6 +31,7 @@ class ListDevicesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_devices)
+
         setupRecyclerView()
 
         getDevices()
@@ -52,6 +52,7 @@ class ListDevicesActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
         val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
 
         result?.contents?.let {
@@ -60,6 +61,7 @@ class ListDevicesActivity : AppCompatActivity() {
             deviceRepository.save(Device(macAddress, "100", type))
             getDevices()
         }
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -87,7 +89,7 @@ class ListDevicesActivity : AppCompatActivity() {
 
         rvDevices.apply {
             setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(this@ListDevicesActivity)
+            layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this@ListDevicesActivity)
             adapter = deviceAdapter
         }
 
