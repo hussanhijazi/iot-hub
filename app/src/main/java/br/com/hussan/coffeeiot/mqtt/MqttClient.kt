@@ -53,7 +53,7 @@ class MqttClient(private val context: Context) {
 
     }
 
-    fun publishMessage(topic: String, msg: String) {
+    fun publishMessage(topic: String, msg: String, retained: Boolean = true) {
 
         try {
             val message = MqttMessage()

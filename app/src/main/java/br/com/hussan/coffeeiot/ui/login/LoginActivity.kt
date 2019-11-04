@@ -8,7 +8,6 @@ import br.com.hussan.coffeeiot.ui.listdevices.ListDevicesActivity
 import com.example.hussan.coffeeiot.R
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.btnLogin
 
 class LoginActivity : AppCompatActivity() {
@@ -44,7 +43,6 @@ class LoginActivity : AppCompatActivity() {
         if (requestCode == RC_SIGN_IN) {
             val response = IdpResponse.fromResultIntent(data)
             if (resultCode == Activity.RESULT_OK) {
-                val user = FirebaseAuth.getInstance().currentUser
                 // mando pro tela
                 startActivity(Intent(this, ListDevicesActivity::class.java))
             } else {

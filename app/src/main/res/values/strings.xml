@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Coffee IOT</string>
+    <string name="app_name">Devices Hub</string>
     <string name="on">ligar</string>
     <string name="off">desligar</string>
     <string name="voice_prompt">Fala ai...</string>

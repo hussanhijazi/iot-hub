@@ -1,5 +1,6 @@
 package br.com.hussan.coffeeiot.ui.listdevices
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -7,13 +8,16 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import br.com.hussan.coffeeiot.AppApplication
 import br.com.hussan.coffeeiot.data.DeviceDataSource
 import br.com.hussan.coffeeiot.data.DeviceRepository
 import br.com.hussan.coffeeiot.data.model.Device
 import br.com.hussan.coffeeiot.extensions.hide
 import br.com.hussan.coffeeiot.extensions.show
 import br.com.hussan.coffeeiot.ui.qrcode.QrCodeActivity
+import br.com.hussan.coffeeiot.ui.relay.RelayActivity
 import com.example.hussan.coffeeiot.R
+import com.google.firebase.auth.FirebaseUser
 import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.activity_list_devices.pbDevices
 import kotlinx.android.synthetic.main.activity_list_devices.rvDevices
@@ -21,11 +25,15 @@ import kotlinx.android.synthetic.main.activity_list_devices.rvDevices
 class ListDevicesActivity : AppCompatActivity() {
 
     private val deviceAdapter: DevicesAdapter by lazy {
-        DevicesAdapter()
+        DevicesAdapter(::clickDevice)
     }
 
     private val deviceRepository: DeviceDataSource by lazy {
         DeviceRepository()
+    }
+
+    private val user: FirebaseUser? by lazy {
+        (application as AppApplication).getUser()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +47,7 @@ class ListDevicesActivity : AppCompatActivity() {
 
     private fun getDevices() {
         pbDevices.show()
-        deviceRepository.getDevices()
+        deviceRepository.getDevices(user?.uid ?: return)
                 .addOnSuccessListener { documents ->
                     val docs = documents.toObjects(Device::class.java)
                     deviceAdapter.setItems(docs)
@@ -51,6 +59,16 @@ class ListDevicesActivity : AppCompatActivity() {
                 }
     }
 
+    private fun clickDevice(device: Device) {
+
+        val intent = Intent(this, RelayActivity::class.java).apply {
+            putExtra(RelayActivity.DEVICE, device)
+        }
+
+        startActivity(intent)
+    }
+
+    @SuppressLint("MissingSuperCall")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
         val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
@@ -58,7 +76,7 @@ class ListDevicesActivity : AppCompatActivity() {
         result?.contents?.let {
             val (macAddress, type) = it.split(";")
             Log.d("h2", "$macAddress -> $type")
-            deviceRepository.save(Device(macAddress, "100", type))
+            deviceRepository.save(Device(macAddress, user?.uid, type))
             getDevices()
         }
 

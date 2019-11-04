@@ -19,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="br.com.hussan.coffeeiot.ui.main.CoffeeActivity" />
+        <activity android:name="br.com.hussan.coffeeiot.ui.relay.RelayActivity" />
         <activity android:name="br.com.hussan.coffeeiot.ui.listdevices.ListDevicesActivity" />
         <activity android:name="br.com.hussan.coffeeiot.ui.qrcode.ConfigActivity" />
 

@@ -8,7 +8,7 @@ import com.google.firebase.firestore.QuerySnapshot
 
 interface DeviceDataSource {
     fun save(device: Device)
-    fun getDevices(): Task<QuerySnapshot>
+    fun getDevices(userId: String): Task<QuerySnapshot>
 }
 
 class DeviceRepository : DeviceDataSource {
@@ -17,6 +17,7 @@ class DeviceRepository : DeviceDataSource {
 
     companion object {
         const val DEVICES = "devices"
+        const val USER_ID = "userId"
     }
 
     override fun save(device: Device) {
@@ -30,10 +31,11 @@ class DeviceRepository : DeviceDataSource {
                 }
     }
 
-    override fun getDevices(): Task<QuerySnapshot> {
+    override fun getDevices(userId: String): Task<QuerySnapshot> {
         return db.collection(DEVICES)
+                .whereEqualTo(USER_ID, userId)
                 .get()
-               
+
 
     }
 }

@@ -7,14 +7,13 @@ import android.widget.TextView
 import br.com.hussan.coffeeiot.data.model.Device
 import com.example.hussan.coffeeiot.R
 
-class DevicesAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<DevicesAdapter.DeviceViewHolder>() {
+class DevicesAdapter(private val clickDevice: (device: Device) -> Unit) : androidx.recyclerview.widget.RecyclerView.Adapter<DevicesAdapter.DeviceViewHolder>() {
 
     var devices = listOf<Device>()
 
-    inner class DeviceViewHolder(val view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
+    inner class DeviceViewHolder(private val view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
         var txtMacAddres: TextView = view.findViewById(R.id.txtMacAddress)
         var txtType: TextView = view.findViewById(R.id.txtType)
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): DevicesAdapter.DeviceViewHolder {
@@ -37,5 +36,8 @@ class DevicesAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<Devices
         val device = devices[position]
         holder.txtMacAddres.text = device.macAddress
         holder.txtType.text = device.type
+        holder.itemView.setOnClickListener {
+            clickDevice(device)
+        }
     }
 }
