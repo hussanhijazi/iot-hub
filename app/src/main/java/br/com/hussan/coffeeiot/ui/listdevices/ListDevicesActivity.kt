@@ -61,9 +61,20 @@ class ListDevicesActivity : AppCompatActivity() {
 
     private fun clickDevice(device: Device) {
 
-        val intent = Intent(this, RelayActivity::class.java).apply {
-            putExtra(RelayActivity.DEVICE, device)
+        when (device.type) {
+            "relay" -> {
+                val intent = Intent(this, RelayActivity::class.java).apply {
+                    putExtra(RelayActivity.DEVICE, device)
+                }
+            }
+            "temperature" -> {
+                val intent = Intent(this, RelayActivity::class.java).apply {
+                    putExtra(RelayActivity.DEVICE, device)
+                }
+            }
         }
+
+
 
         startActivity(intent)
     }
