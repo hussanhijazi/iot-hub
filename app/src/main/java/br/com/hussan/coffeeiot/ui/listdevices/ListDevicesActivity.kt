@@ -16,6 +16,7 @@ import br.com.hussan.coffeeiot.extensions.hide
 import br.com.hussan.coffeeiot.extensions.show
 import br.com.hussan.coffeeiot.ui.qrcode.QrCodeActivity
 import br.com.hussan.coffeeiot.ui.relay.RelayActivity
+import br.com.hussan.coffeeiot.ui.temperaturehumidity.TemperatureHumidityActivity
 import com.example.hussan.coffeeiot.R
 import com.google.firebase.auth.FirebaseUser
 import com.google.zxing.integration.android.IntentIntegrator
@@ -66,17 +67,17 @@ class ListDevicesActivity : AppCompatActivity() {
                 val intent = Intent(this, RelayActivity::class.java).apply {
                     putExtra(RelayActivity.DEVICE, device)
                 }
+                startActivity(intent)
             }
             "temperature" -> {
-                val intent = Intent(this, RelayActivity::class.java).apply {
-                    putExtra(RelayActivity.DEVICE, device)
+                val intent = Intent(this, TemperatureHumidityActivity::class.java).apply {
+                    putExtra(TemperatureHumidityActivity.DEVICE, device)
                 }
+                startActivity(intent)
             }
         }
 
 
-
-        startActivity(intent)
     }
 
     @SuppressLint("MissingSuperCall")

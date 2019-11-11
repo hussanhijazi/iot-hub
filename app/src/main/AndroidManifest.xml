@@ -22,6 +22,7 @@
         <activity android:name="br.com.hussan.coffeeiot.ui.relay.RelayActivity" />
         <activity android:name="br.com.hussan.coffeeiot.ui.listdevices.ListDevicesActivity" />
         <activity android:name="br.com.hussan.coffeeiot.ui.qrcode.ConfigActivity" />
+        <activity android:name="br.com.hussan.coffeeiot.ui.temperaturehumidity.TemperatureHumidityActivity" />
 
         <activity
             android:name="br.com.hussan.coffeeiot.ui.qrcode.QrCodeActivity"

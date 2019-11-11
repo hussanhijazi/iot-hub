@@ -39,7 +39,6 @@ class RelayActivity : AppCompatActivity() {
         device = intent.getParcelableExtra(DEVICE) as Device
         topic = "${device.macAddress}/${device.type}".toLowerCase()
 
-        Log.d("h2", device.toString())
         Log.d("h2", topic)
 
         connectAndSubscribe()
