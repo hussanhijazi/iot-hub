@@ -2,13 +2,11 @@ package br.com.hussan.coffeeiot.ui.relay
 
 import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import br.com.hussan.coffeeiot.data.model.Device
 import br.com.hussan.coffeeiot.extensions.color
 import br.com.hussan.coffeeiot.extensions.hide
 import br.com.hussan.coffeeiot.extensions.show
-import br.com.hussan.coffeeiot.mqtt.MqttClient
+import br.com.hussan.coffeeiot.ui.MqttDeviceActivity
 import com.example.hussan.coffeeiot.R
 import kotlinx.android.synthetic.main.activity_relay.btnCoffee
 import kotlinx.android.synthetic.main.activity_relay.imgCoffee
@@ -16,32 +14,22 @@ import kotlinx.android.synthetic.main.activity_relay.lytRoot
 import kotlinx.android.synthetic.main.activity_relay.progressBar
 import org.eclipse.paho.client.mqttv3.MqttMessage
 
-class RelayActivity : AppCompatActivity() {
+class RelayActivity : MqttDeviceActivity() {
 
-    val broker: String = "tcp://broker.hivemq.com"
     lateinit var topic: String
-    private val mqttClient: MqttClient by lazy {
-        MqttClient(this)
-    }
-    lateinit var device: Device
 
     var onOff = false
-
-    companion object {
-        const val DEVICE = "DEVICES"
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_relay)
 
-        device = intent.getParcelableExtra(DEVICE) as Device
         topic = "${device.macAddress}/${device.type}".toLowerCase()
 
         Log.d("h2", topic)
 
-        connectAndSubscribe()
+        connectAndSubscribe(arrayOf(topic))
 
         btnCoffee.setOnClickListener {
             progressBar.show()
@@ -55,12 +43,7 @@ class RelayActivity : AppCompatActivity() {
         }
     }
 
-    private fun connectAndSubscribe() {
-        mqttClient.connect(broker)
-        mqttClient.setCallBack(arrayOf(topic), ::updateButton)
-    }
-
-    private fun updateButton(topic: String, message: MqttMessage) {
+    override fun setData(topic: String, message: MqttMessage) {
         imgCoffee.show()
         onOff = if (String(message.payload) == "on") {
             btnCoffee.setColorFilter(color(R.color.colorPrimary))
@@ -75,10 +58,5 @@ class RelayActivity : AppCompatActivity() {
             false
         }
         progressBar.hide()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mqttClient.close()
     }
 }

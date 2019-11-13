@@ -14,6 +14,7 @@ import br.com.hussan.coffeeiot.data.DeviceRepository
 import br.com.hussan.coffeeiot.data.model.Device
 import br.com.hussan.coffeeiot.extensions.hide
 import br.com.hussan.coffeeiot.extensions.show
+import br.com.hussan.coffeeiot.ui.MqttDeviceActivity
 import br.com.hussan.coffeeiot.ui.qrcode.QrCodeActivity
 import br.com.hussan.coffeeiot.ui.relay.RelayActivity
 import br.com.hussan.coffeeiot.ui.temperaturehumidity.TemperatureHumidityActivity
@@ -65,19 +66,17 @@ class ListDevicesActivity : AppCompatActivity() {
         when (device.type) {
             "relay" -> {
                 val intent = Intent(this, RelayActivity::class.java).apply {
-                    putExtra(RelayActivity.DEVICE, device)
+                    putExtra(MqttDeviceActivity.DEVICE, device)
                 }
                 startActivity(intent)
             }
             "temperature" -> {
                 val intent = Intent(this, TemperatureHumidityActivity::class.java).apply {
-                    putExtra(TemperatureHumidityActivity.DEVICE, device)
+                    putExtra(MqttDeviceActivity.DEVICE, device)
                 }
                 startActivity(intent)
             }
         }
-
-
     }
 
     @SuppressLint("MissingSuperCall")
